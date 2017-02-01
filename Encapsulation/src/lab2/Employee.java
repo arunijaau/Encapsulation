@@ -35,6 +35,7 @@ public class Employee {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setSsn(ssn);
+        this.orientationDate = new Date();
         
     }
     
