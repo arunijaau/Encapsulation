@@ -39,7 +39,7 @@ public class Employee {
         
     }
     
-    public void performOrientation(){
+    public void performOrientation(String cubeId){
         meetWithHrForBenefitAndSalryInfo(); 
         meetDepartmentStaff();
         reviewDeptPolicies();
@@ -100,8 +100,13 @@ public class Employee {
     // sometimes change office locations that this method may need to be called 
     // independently from other classes.
     public void moveIntoCubicle(String cubeId) {
+        if(cubeId == null || cubeId.isEmpty()){
+            System.out.println("error message");
+           
+        } else{
         this.cubeId = cubeId;
         this.movedIn = true;
+        }
         //SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         //String fmtDate = sdf.format(orientationDate);        
         print(getEmployeeName() + " moved into cubicle "
