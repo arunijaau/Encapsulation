@@ -29,31 +29,52 @@ public class Employee {
     private boolean movedIn;
     private String cubeId;
     private Date orientationDate;
+     
 
     public Employee(String firstName, String lastName, String ssn) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.ssn = ssn;
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setSsn(ssn);
+        
     }
 
+    private String getFormatDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        String fmtDate = sdf.format(orientationDate);  
+        return fmtDate;
+    }
+    
+    private String getEmployeeName(){
+        String name = firstName + " " + lastName;
+        return name;
+    }
+    
+    private void print(String info){
+        System.out.println(info);
+    }
+    
+    private boolean hasValue(String val){
+        return val != null && !val.isEmpty();
+    }
     // Assume this must be performed first, and assume that an employee
     // would only do this once, upon being hired.
     public void meetWithHrForBenefitAndSalryInfo() {
         metWithHr = true;
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(orientationDate);        
-        System.out.println(firstName + " " + lastName + " met with Hr on "
-            + fmtDate);
+        //SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        //String fmtDate = sdf.format(orientationDate);  
+        
+        print(getEmployeeName() + " met with Hr on "
+            + getFormatDate());
     }
 
     // Assume this must be performed first, and assume that an employee
     // would only do this once, upon being hired.:
     public void meetDepartmentStaff() {
         metDeptStaff = true;
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(orientationDate);        
-        System.out.println(firstName + " " + lastName + " met with Dept. Staff on "
-            + fmtDate);
+        //SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        //String fmtDate = sdf.format(orientationDate);        
+        print(getEmployeeName() + " met with Dept. Staff on "
+            + getFormatDate());
     }
 
     // Assume this must be performed third. And assume that because department
@@ -61,10 +82,10 @@ public class Employee {
     // independently from other classes.
     public void reviewDeptPolicies() {
         reviewedDeptPolicies = true;
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(orientationDate);        
-        System.out.println(firstName + " " + lastName + " reviewed Dept policies on "
-            + fmtDate);
+        //SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        //String fmtDate = sdf.format(orientationDate);        
+        print(getEmployeeName() + " reviewed Dept policies on "
+            + getFormatDate());
     }
 
     // Assume this must be performed 4th. And assume that because employees
@@ -73,13 +94,14 @@ public class Employee {
     public void moveIntoCubicle(String cubeId) {
         this.cubeId = cubeId;
         this.movedIn = true;
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
-        String fmtDate = sdf.format(orientationDate);        
-        System.out.println(firstName + " " + lastName + " moved into cubicle "
-                + cubeId + " on " + fmtDate);
+        //SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        //String fmtDate = sdf.format(orientationDate);        
+        print(getEmployeeName() + " moved into cubicle "
+                + cubeId + " on " + getFormatDate());
     }
 
     public String getFirstName() {
+        
         return firstName;
     }
 
@@ -87,7 +109,9 @@ public class Employee {
     // allowed through validation.
     
     public void setFirstName(String firstName) {
-       this.firstName = firstName;
+        if (hasValue(firstName)) {
+             this.firstName = firstName;
+        } 
     }
 
     public String getLastName() {
@@ -95,15 +119,19 @@ public class Employee {
     }
 
     public void setLastName(String lastName) {
-       this.lastName = lastName;
+        if (hasValue(lastName)) {
+             this.lastName = lastName; 
+        }
     }
 
     public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    private void setSsn(String ssn) {
+        if (hasValue(ssn) && ssn.length()!= 9){
+         this.ssn = ssn;
+        }       
     }
 
     public boolean isMetWithHr() {
@@ -145,7 +173,9 @@ public class Employee {
 
     
     public void setCubeId(String cubeId) {
-        this.cubeId = cubeId;
+        if(hasValue(cubeId)){
+            this.cubeId = cubeId;
+        }       
     }
 
     public Date getOrientationDate() {
@@ -153,5 +183,7 @@ public class Employee {
     }
 
     public void setOrientationDate(Date orientationDate) {
+        
         this.orientationDate = orientationDate;
-    }}
+    }
+}
