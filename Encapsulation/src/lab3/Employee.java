@@ -46,6 +46,7 @@ public class Employee {
     private boolean movedIn;
     private String cubeId;
     private Date orientationDate;
+    private EmployeeReportService reportServ;
 
     public Employee(String firstName, String lastName, String ssn) {
         // Using setter method guarantees validation will be performed
@@ -53,6 +54,7 @@ public class Employee {
         setFirstName(firstName);
         setLastName(lastName);
         setSsn(ssn);
+        reportServ = new EmployeeReportService(this);
     }
     
     /* 
@@ -61,7 +63,7 @@ public class Employee {
         of encapsulation where we put frequently used code in one place for for
         easy editing later if necessary.
     */
-    private String getFormattedDate() {
+    public String getFormattedDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         return sdf.format(orientationDate);
     }
@@ -89,19 +91,21 @@ public class Employee {
     // and should only be called as part of the larger task of:
     private void meetWithHrForBenefitAndSalryInfo() {
         metWithHr = true;
-        System.out.println(firstName + " " + lastName + " met with Hr on "
-            + getFormattedDate());
+        reportServ.outputMeetingStatusForBenefitAndSalaryInfo();
+        //System.out.println(firstName + " " + lastName + " met with Hr on "
+            //+ getFormattedDate());
     }
 
-    // Assume this must be performed first, and assume that an employee
+    // Assume this must be performed second, and assume that an employee
     // would only do this once, upon being hired. If that were true, this
     // method should not be public. It should only be available to this class
     // and should only be called as part of the larger task of:
     // doFirtTimeOrientation()
     private void meetDepartmentStaff() {
         metDeptStaff = true;
-        System.out.println(firstName + " " + lastName + " met with Dept. Staff on "
-            + getFormattedDate());
+        reportServ.outputMeetingStatusWithDeptStaff();
+//        System.out.println(firstName + " " + lastName + " met with Dept. Staff on "
+//            + getFormattedDate());
     }
 
     // Assume this must be performed third. And assume that because department
@@ -109,8 +113,9 @@ public class Employee {
     // independently from other classes.
     public void reviewDeptPolicies() {
         reviewedDeptPolicies = true;
-        System.out.println(firstName + " " + lastName + " reviewed Dept policies on "
-            + getFormattedDate());
+        reportServ.outputStatusOfReviewingDeptPolicies();
+//        System.out.println(firstName + " " + lastName + " reviewed Dept policies on "
+//            + getFormattedDate());
     }
 
     // Assume this must be performed 4th. And assume that because employees
@@ -119,8 +124,9 @@ public class Employee {
     public void moveIntoCubicle(String cubeId) {
         this.cubeId = cubeId;
         this.movedIn = true;
-        System.out.println(firstName + " " + lastName + " moved into cubicle "
-                + cubeId + " on " + getFormattedDate());
+        reportServ.outputStatusOfMovingIntoCubicles();
+//        System.out.println(firstName + " " + lastName + " moved into cubicle "
+//                + cubeId + " on " + getFormattedDate());
     }
 
     public String getFirstName() {
@@ -144,7 +150,8 @@ public class Employee {
 
     public void setLastName(String lastName) {
         if(lastName == null || lastName.isEmpty()) {
-            System.out.println("last name is required");
+            throw new IllegalArgumentException("last name is required");
+            //System.out.println("last name is required");
         }
         this.lastName = lastName;
     }
@@ -155,8 +162,10 @@ public class Employee {
 
     public void setSsn(String ssn) {
         if(ssn == null || ssn.length() < 9 || ssn.length() > 11) {
-            System.out.println("ssn is required and must be "
-                    + "between 9 and 11 characters (if hyphens are used)");
+            throw new IllegalArgumentException("ssn is required and must be " + 
+                    "between 9 and 11 characters (if hyphens are used");
+//            System.out.println("ssn is required and must be "
+//                    + "between 9 and 11 characters (if hyphens are used)");
         }
         this.ssn = ssn;
     }
@@ -201,7 +210,8 @@ public class Employee {
     
     public void setCubeId(String cubeId) {
         if(cubeId == null || cubeId.isEmpty()) {
-            System.out.println("cube id is required");
+            throw new IllegalArgumentException("cube id is required");
+//            System.out.println("cube id is required");
         }
         this.cubeId = cubeId;
     }
@@ -212,7 +222,8 @@ public class Employee {
 
     public void setOrientationDate(Date orientationDate) {
         if(orientationDate == null) {
-            System.out.println("orientationDate is required");
+            throw new IllegalArgumentException("orientation Date is required.");
+//            System.out.println("orientationDate is required");
         }
         this.orientationDate = orientationDate;
     }
