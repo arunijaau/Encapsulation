@@ -38,10 +38,7 @@ public class Company {
         
     }
     
-    public void addDepartment(Department dept){
-        departments.add(dept);
-    }
-    
+   
     
     @Override 
     public String toString(){
