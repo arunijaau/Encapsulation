@@ -50,18 +50,21 @@ public class Employee {
     private String cubeId;
     private Date orientationDate;
     private EmployeeReportService reportService;
+    private Department department;
+   
 
     /*
         Notice we force certain mandatory properties by using a custom
         constructor. But we use the setter method to peform validation.
     */
-    public Employee(String firstName, String lastName, String ssn) {
+    public Employee(String firstName, String lastName, String ssn, EmployeeReportService reportService) {
         // Using setter method guarantees validation will be performed
         // Ignore the warning messages for now. Will be explained later
+        this.reportService = reportService;
         setFirstName(firstName);
         setLastName(lastName);
         setSsn(ssn);
-        reportService = new EmployeeReportService();
+        
     }
     
     /* 
@@ -233,6 +236,19 @@ public class Employee {
 
     public void setReportService(EmployeeReportService reportService) {
         this.reportService = reportService;
+    }
+
+    public void setDepartment(Department dept) {
+        this.department = dept;
+    }
+
+    public Department getDepartment(){
+        return this.department;
+    }
+   
+    @Override
+    public String toString(){
+        return this.firstName + " " + this.lastName;
     }
     
 }
