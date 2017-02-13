@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Department {
 
-    private String name;
+    private final String name;
     private final ArrayList<Employee> employees;
     private int nextCubeId;
-    private EmployeeReportService reportService;
+    private final EmployeeReportService reportService;
         
     public Department(String name, EmployeeReportService reportService) {
         this.reportService = reportService;

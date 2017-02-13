@@ -12,36 +12,32 @@ import java.util.ArrayList;
  * @author Aruni
  */
 public class Company {
-    
-    private String name;
-    private Office office;
-    private ArrayList<Department> departments;
-    private EmployeeReportService reportService;
-    
-    public Company(String name){
+
+    private final String name;
+    private final Office office;
+    private final ArrayList<Department> departments;
+    private final EmployeeReportService reportService;
+
+    public Company(String name) {
         reportService = new EmployeeReportService();
         this.name = name;
         departments = new ArrayList<>();
         this.office = new Office("HR Office");
     }
-    
-    public void run(){
+
+    public void run() {
         Department finance = new Department("Finance", reportService);
-        Employee peter = new Employee("Peter","Piper","333-33-3333", reportService );
+        Employee peter = new Employee("Peter", "Piper", "333-33-3333", reportService);
         Employee john = new Employee("John", "Davis", "444-45-3455", reportService);
         office.hireEmployee(peter, finance);
         office.hireEmployee(john, finance);
         office.performOrientation(peter);
         office.performOrientation(john);
         reportService.outputReport();
-        
-        
     }
-    
-   
-    
-    @Override 
-    public String toString(){
+
+    @Override
+    public String toString() {
         return this.name;
     }
 }

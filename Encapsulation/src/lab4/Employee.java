@@ -52,7 +52,6 @@ public class Employee {
     private EmployeeReportService reportService;
     private Department department;
    
-
     /*
         Notice we force certain mandatory properties by using a custom
         constructor. But we use the setter method to peform validation.
